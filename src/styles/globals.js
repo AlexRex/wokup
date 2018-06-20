@@ -2,6 +2,8 @@ import { injectGlobal } from 'styled-components';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Bitter:400:700');
+
   :root {
     font-size: 14px;
   }
@@ -21,7 +23,7 @@ injectGlobal`
     color: white;
   }
 
-  body, html, .main {
+  body, html, #root {
     height: 100%;
     width: 100%;
   }

@@ -1,0 +1,8 @@
+{
+  "development": {
+    "apiUrl": "http://localhost:3000/current"
+  },
+  "default": {
+    "apiUrl": "https://alex-torres-wc-api.now.sh/current"
+  }
+}

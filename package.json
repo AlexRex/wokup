@@ -1,34 +1,59 @@
 {
-  "name": "react-menubar",
+  "name": "world-cup-score",
   "version": "0.0.1",
-  "description": "A Skeleton Menu Bar App in React",
-  "main": "./dist/main.js",
+  "description": "Worldcup score on electron",
+  "main": "./build/main.js",
   "license": "MIT",
   "private": false,
   "author": "Alex Torres <aletormat@gmail.com>",
+  "buildDetails": {
+    "appSlug": "worldcup_score",
+    "appName": "Worldcup Score"
+  },
+  "build": {
+    "appId": "alextorres.me.wokup",
+    "productName": "Wokup",
+    "mac": {
+      "category": "sport"
+    },
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "build/",
+      "icons/",
+      "index.html",
+      "package.json",
+      ".env",
+      "electron-builder.env"
+    ]
+  },
   "scripts": {
-    
-    "dev": "parcel build main.js --target=electron && parcel build src/index.js --target=node && yarn watch",
+    "dev": "parcel build main.js --target=electron -d build/ && parcel build src/index.js -d build/ --target=node && yarn watch",
     "start:electron": "electron .",
-    "watch:electron": "parcel watch main.js --target=electron",
-    "watch:react": "parcel watch src/index.js --target=node",
-    "watch": "ENVIRONMENT=develop concurrently \"yarn watch:electron\" \"yarn watch:react\" \"yarn start:electron\""
+    "watch:electron": "parcel watch main.js --target=electron -d build/",
+    "watch:react": "parcel watch src/index.js --target=node -d build/",
+    "watch": "NODE_ENV=development concurrently \"yarn watch:electron\" \"yarn watch:react\" \"yarn start:electron\"",
+    "build": "rm -rf build/ && parcel build main.js --target=electron -d build/ && parcel build src/index.js -d build/ --target=node && cp icons/icon.png build/icon.png ",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "auto-launch": "^5.0.5",
-    "concurrently": "^3.5.1",
-    "dotenv": "^5.0.1",
-    "electron-reload": "^1.2.2",
+    "date-fns": "^1.29.0",
     "menubar": "^5.2.3",
-    "styled-components": "^3.3.2"
+    "rc-progress": "^2.2.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.3.2",
+    "fix-path": "^2.1.0"
   },
   "devDependencies": {
     "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.1",
     "electron": "^1.8.3",
+    "electron-builder": "^20.15.1",
     "electron-devtools-installer": "^2.2.4",
-    "parcel-bundler": "^1.6.2",
-    "prettier": "^1.11.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "parcel-bundler": "^1.6.2"
   }
 }

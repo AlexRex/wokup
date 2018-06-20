@@ -1,22 +1,23 @@
 import menubar from 'menubar';
 import AutoLaunch from 'auto-launch';
-import { Menu } from 'electron';
-import dotenv from 'dotenv';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { Menu, app, shell } from 'electron';
+import path from 'path';
 
-require('electron-reload')(__dirname);
+import pkg from './package.json';
 
-dotenv.config();
+require('fix-path')(); // resolve user $PATH env variable
 
 export const mb = menubar({
   dir: __dirname + '/../',
+  icon: path.join(app.getAppPath(), 'icons/icon-tray.png'),
   preloadWindow: true,
-  height: 200,
+  height: 450,
   width: 350,
-  alwaysOnTop: process.env.ENVIRONMENT === 'develop'
+  resizable: false,
+  alwaysOnTop: process.env.NODE_ENV === 'development'
 });
 
-let appLauncher = new AutoLaunch({ name: process.env.APP_SLUG });
+let appLauncher = new AutoLaunch({ name: pkg.buildDetails.appSlug });
 
 const contextMenu = Menu.buildFromTemplate([
   {
@@ -38,18 +39,39 @@ const contextMenu = Menu.buildFromTemplate([
     }
   },
   {
-    label: `Quit ${process.env.APP_NAME}`,
-    click: () => mb.app.quit(),
+    label: 'Made with <3 by Alex Torres',
+    click: () => shell.openExternal('http://alextorres.me')
+  },
+  {
+    label: `Quit ${pkg.buildDetails.appName}`,
+    click: () => mb.app.quit()
   }
 ]);
 
+const installDevTools = () => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Installing devtools');
+    const installer = require('electron-devtools-installer');
+
+    const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+
+    return Promise.all(
+      extensions.map(name => installer.default(installer[name], forceDownload)),
+    ).catch(console.log);
+  }
+}
+
 mb.on('ready', async () => {
-  await installExtension(REACT_DEVELOPER_TOOLS);
-  console.log('Added react extensions');
-  console.log(`${process.env.APP_NAME} is Ready!!`);
+  await installDevTools();
+  console.log(`${pkg.buildDetails.appName} is Ready!!`);
   mb.tray.on('right-click', () => {
     mb.tray.popUpContextMenu(contextMenu);
   });
 });
 
-mb.on('after-create-window', () => mb.window.openDevTools({ mode: 'detach' }))
+mb.on('after-create-window', () => {
+  if (process.env.NODE_ENV === 'development') {
+    mb.window.openDevTools({ mode: 'detach' })
+  }
+});
