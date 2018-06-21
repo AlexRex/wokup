@@ -9,7 +9,7 @@ require('fix-path')(); // resolve user $PATH env variable
 
 export const mb = menubar({
   dir: __dirname + '/../',
-  icon: path.join(app.getAppPath(), 'icons/icon-tray.png'),
+  icon: path.join(app.getAppPath(), 'icons/Template.png'),
   preloadWindow: true,
   height: 450,
   width: 350,

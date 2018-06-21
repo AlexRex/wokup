@@ -6,6 +6,10 @@
   "license": "MIT",
   "private": false,
   "author": "Alex Torres <aletormat@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexRex/wokup"
+  },
   "buildDetails": {
     "appSlug": "worldcup_score",
     "appName": "Worldcup Score"
@@ -14,7 +18,13 @@
     "appId": "alextorres.me.wokup",
     "productName": "Wokup",
     "mac": {
-      "category": "sport"
+      "category": "sport",
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "dmg"
+      ]
     },
     "directories": {
       "output": "release"
