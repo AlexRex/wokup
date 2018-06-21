@@ -1,6 +1,6 @@
 {
   "name": "world-cup-score",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Worldcup score on electron",
   "main": "./build/main.js",
   "license": "MIT",
