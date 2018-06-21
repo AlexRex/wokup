@@ -5,6 +5,8 @@ import styled, { keyframes } from 'styled-components';
 import icons from '../../styles/icons';
 import config from '../../config.json';
 
+import ua from 'universal-analytics';
+
 const AppWrapper = styled.div`
   text-align: center;
   width: 100%;
@@ -58,6 +60,9 @@ class App extends Component {
     this.state = {
       loading: true
     };
+
+    const visitor = ua('UA-80488337-3');
+    visitor.pageview('/').send();
   }
 
   clearInterval() {
