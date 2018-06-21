@@ -51,12 +51,13 @@
   "dependencies": {
     "auto-launch": "^5.0.5",
     "date-fns": "^1.29.0",
+    "fix-path": "^2.1.0",
     "menubar": "^5.2.3",
     "rc-progress": "^2.2.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "styled-components": "^3.3.2",
-    "fix-path": "^2.1.0"
+    "universal-analytics": "^0.4.17"
   },
   "devDependencies": {
     "babel-preset-react": "^6.24.1",
